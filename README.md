@@ -21,7 +21,7 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Used Templates - Argon Dashboard by Creatice-tim(https://creative-tim.com)
+## Used Templates - Argon Dashboard by [Creative-tim](https://creative-]tim.com)
 
 An user-friendly, open source and beautiful dashboard based on Bootstrap 4.
 
