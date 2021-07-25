@@ -88,49 +88,49 @@
     </nav>
     <!-- Header -->
     <!-- Header -->
-    <div class="header bg-primary pb-6">
-      <div class="container-fluid">
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
         <div class="header-body">
-          <div class="row align-items-center py-4">
-            <div class="col-lg-12 col-12">
-              {{-- <h6 class="h2 text-white d-inline-block mb-0">{{ Route::currentRouteName() }}</h6> --}}
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark bg-white">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  @php
-                      $url = explode('/', Request::url());
-                      $bc = [];
-                      $fix = [];
-                      foreach ($url as $key => $value) {
-                        if (strpos($value, 'http') !== false || strpos($value, '127') !== false ) {
+            <div class="row align-items-center py-4">
+                <div class="col-12">
+                    {{-- <h6 class="h2 text-white d-inline-block mb-0">{{ Route::currentRouteName() }}</h6> --}}
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                    <ol class="breadcrumb breadcrumb-links breadcrumb-dark bg-white">
+                        <li class="breadcrumb-item"><a href="{{ url('/home') }}"><i class="fas fa-home"></i></a></li>
+                        @php
+                            $url = explode('/', Request::url());
+                            $bc = [];
+                            $fix = [];
+                            foreach ($url as $key => $value) {
+                            if (strpos($value, 'http') !== false || strpos($value, '127') !== false ) {
 
-                        } else {
-                            $bc[] = $value;
-                        }
-                      }
-                      foreach ($bc as $key => $v) {
-                          if($v == ""){
+                            } else {
+                                $bc[] = $value;
+                            }
+                            }
+                            foreach ($bc as $key => $v) {
+                                if($v == ""){
 
-                          } else {
-                              $fix[] = $v;
-                          }
-                      }
-                      $last = count($fix) - 1;
-                  @endphp
-                  @foreach ($fix as $k => $item)
-                  <li class="breadcrumb-item" aria-current="page">
-                      <a href="" class="@if($k == $last) text-muted @endif">
-                          {{ $item }}
-                      </a>
-                </li>
-                  @endforeach
-                </ol>
-              </nav>
+                                } else {
+                                    $fix[] = $v;
+                                }
+                            }
+                            $last = count($fix) - 1;
+                        @endphp
+                        @foreach ($fix as $k => $item)
+                        <li class="breadcrumb-item" aria-current="page">
+                            <a href="{{ route($item) }}" class="@if($k == $last) text-muted @endif">
+                                {{ $item }}
+                            </a>
+                    </li>
+                        @endforeach
+                    </ol>
+                    </nav>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
     <!-- Page content -->
     <div class="container-fluid mt--6">
         @yield('content')

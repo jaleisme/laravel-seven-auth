@@ -35,6 +35,16 @@ Route::get('/user', 'User\HomeController@index')->name('user')->middleware('user
 // Superadmin's Routes
 Route::group(['prefix' => 'superadmin', 'middleware' => 'superadmin'], function () {
     Route::group(['prefix' => 'system-access'], function () {
-        Route::resource('administrator', 'Superadmin\AdminController')->name('index', 'administrator');
+        //Base System Access
+        Route::get('/system-access', function(){
+            return redirect()->route('administrator');
+        })->name('system-access');
+        //Administrator
+        Route::get('/administrator', 'Superadmin\AdminController@index')->name('administrator');
+        Route::get('/administrator/create', 'Superadmin\AdminController@create')->name('administrator.create');
+        Route::get('/administrator/edit/{id}', 'Superadmin\AdminController@edit')->name('administrator.edit');
+        Route::put('/administrator/update/{id}', 'Superadmin\AdminController@update')->name('administrator.update');
+        Route::post('/administrator/store', 'Superadmin\AdminController@store')->name('administrator.store');
+        Route::delete('/administrator/delete/{id}', 'Superadmin\AdminController@destroy')->name('administrator.delete');
     });
 });

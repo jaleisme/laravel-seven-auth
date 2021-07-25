@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-      <!-- Page content -->
 <div class="">
+    @if(\Session::has('msg'))
     <div class="row">
-        @if(\Session::has('msg'))
         <div class="col-12">
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <span class="alert-icon"><i class="fa fa-exclamation-triangle"></i></span>
@@ -14,29 +13,14 @@
                 </button>
             </div>
         </div>
-        @endif
-        @if(\Session::has('success'))
-        <div class="col-12">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <span class="alert-icon"><i class="fa fa-check-square"></i></span>
-                <span class="alert-text"><strong>Alert!</strong> {{ \Session::get('success') }}</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-        @endif
-        <div class="col-12">
-            <form action="{{ route('save-profile', Auth::user()->id) }}" method="POST">
-                @csrf
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <h3 class="mb-0">Edit profile</h3>
-                            </div>
-                        </div>
-                    </div>
+    </div>
+    @endif
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <form action="{{ route('administrator.store') }}" method="POST">
+                    @csrf
+                    <div class="card-header"><strong>New Administrator</strong></div>
                     <div class="card-body">
                         <h6 class="heading-small text-muted mb-4">User information</h6>
                         <div class="">
@@ -44,13 +28,13 @@
                                 <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-username">Username</label>
-                                    <input type="text" name="name" id="input-username" class="form-control" placeholder="Username" value="{{ $data->name }}" required>
+                                    <input type="text" name="name" id="input-username" class="form-control" placeholder="E.g. John Doe" required>
                                 </div>
                                 </div>
                                 <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-email">Email address</label>
-                                    <input type="email" name="email" id="input-email" class="form-control" placeholder="jesse@example.com" value="{{ $data->email }}" required>
+                                    <input type="email" name="email" id="input-email" class="form-control" placeholder="johndoe@example.com" required>
                                 </div>
                                 </div>
                             </div>
@@ -58,8 +42,8 @@
                                 <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-first-name">Password</label>
-                                    <input  id="password" name="password" type="password" class="form-control px-3 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
-                                    <small>Fill with your current password if you don't want to change it.</small>
+                                    <input  id="password" name="password" type="password" class="form-control px-3 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="********">
+                                    <small>Password must be more than 8 characters</small>
                                 </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -73,11 +57,11 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-end">
-                        <a href="{{ url('/home') }}" class="btn btn-sm btn-danger mr-3">Cancel</a>
+                        <a href="{{ url('superadmin/system-access/administrator') }}" class="btn btn-sm btn-danger mr-3">Cancel</a>
                         <button class="btn btn-sm btn-primary" type="submit">Save Changes</button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
