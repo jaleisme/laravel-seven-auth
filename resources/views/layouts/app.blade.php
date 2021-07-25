@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ asset('/templates/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
         <!-- Argon CSS -->
         <link rel="stylesheet" href="{{ asset('/templates/css/argon.css?v=1.2.0') }}" type="text/css">
+        @yield('custom-style')
       </head>
 
 <body>
@@ -67,13 +68,13 @@
                 <div class="dropdown-header noti-title">
                   <h6 class="text-overflow m-0">Welcome!</h6>
                 </div>
-                <a href="#!" class="dropdown-item">
+                <a href="{{ url('/profile/'.Auth::user()->id) }}" class="dropdown-item">
                   <i class="ni ni-single-02"></i>
                   <span>My profile</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                  <i class="ni ni-user-run"></i>
+                  <i class="fa fa-sign-out-alt"></i>
                   <span>Logout</span>
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -91,26 +92,40 @@
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
-            <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">{{ Route::currentRouteName() }}</h6>
+            <div class="col-lg-12 col-12">
+              {{-- <h6 class="h2 text-white d-inline-block mb-0">{{ Route::currentRouteName() }}</h6> --}}
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark bg-white">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item active" aria-current="page">
-                      @if(Auth::user()->role == 1)
-                      <a href="{{ route('superadmin') }}">superadmin</a>
-                      @elseif(Auth::user()->role == 2)
-                      <a href="{{ route('admin') }}">admin</a>
-                      @elseif(Auth::user()->role == 3)
-                      <a href="{{ route('user') }}">user</a>
-                    @endif
+                  @php
+                      $url = explode('/', Request::url());
+                      $bc = [];
+                      $fix = [];
+                      foreach ($url as $key => $value) {
+                        if (strpos($value, 'http') !== false || strpos($value, '127') !== false ) {
+
+                        } else {
+                            $bc[] = $value;
+                        }
+                      }
+                      foreach ($bc as $key => $v) {
+                          if($v == ""){
+
+                          } else {
+                              $fix[] = $v;
+                          }
+                      }
+                      $last = count($fix) - 1;
+                  @endphp
+                  @foreach ($fix as $k => $item)
+                  <li class="breadcrumb-item" aria-current="page">
+                      <a href="" class="@if($k == $last) text-muted @endif">
+                          {{ $item }}
+                      </a>
                 </li>
+                  @endforeach
                 </ol>
               </nav>
-            </div>
-            <div class="col-lg-6 col-5 text-right">
-              <a href="#" class="btn btn-sm btn-neutral">New</a>
-              <a href="#" class="btn btn-sm btn-neutral">Filters</a>
             </div>
           </div>
         </div>
@@ -133,6 +148,7 @@
   <script src="{{ asset('/templates/vendor/chart.js/dist/Chart.extension.js') }}"></script>
   <!-- Argon JS -->
   <script src="{{ asset('/templates/js/argon.js?v=1.2.0') }}"></script>
+  @yield('custom-script')
 </body>
 
 </html>

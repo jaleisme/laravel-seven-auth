@@ -12,7 +12,7 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('/') }}">
+              <a class="nav-link" href="{{ url('/home') }}">
                 <i class="ni ni-tablet-button"></i>
                 <span class="nav-link-text">Dashboard</span>
               </a>
@@ -27,7 +27,7 @@
           <!-- Navigation -->
           <ul class="navbar-nav mb-md-3">
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html" target="_blank">
+              <a class="nav-link" href="{{ url('/superadmin/system-access/administrator') }}">
                 <i class="ni ni-badge"></i>
                 <span class="nav-link-text">Administrator</span>
               </a>
